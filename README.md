@@ -1,3 +1,4 @@
 # hangman
 
-yay
+yay :D
+mom
