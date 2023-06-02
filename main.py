@@ -12,8 +12,10 @@ def convert(string):
     return list1
 
 
+print('You have 6 lives to guess the word. When you run out of lives, the game ends.')
+
 while word == 0:
-    word = getpass.getpass("Think of a word or press Q to quit: ").lower()
+    word = getpass.getpass("Think of a word or press Q to quit: ")
     blanks = '_' * len(word)
     if word == "q":
         print("Thanks for playing!")
@@ -45,16 +47,16 @@ while remaining_word_length != 0:
         print("You have guessed these letters: ", guesses)
 
     else:
-        if word.count(guess) >= 1:
-            guess_occurrences = word.count(guess)
+        if word.lower().count(guess) >= 1:
+            guess_occurrences = word.lower().count(guess)
             guesses.append(guess)
             indexes = [
                 index for index in range(len(word))
                 if word.startswith(guess, index)
             ]
             for idx, x in enumerate(blanks_list):
-                if word_list[idx] == guess:
-                    blanks_list[idx] = guess
+                if word.lower()[idx] == guess:
+                    blanks_list[idx] = word[idx]
             print("Yes! The letter", guess, "is in the word", guess_occurrences, "times.")
             remaining_word_length = remaining_word_length - guess_occurrences
 
