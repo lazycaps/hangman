@@ -31,20 +31,22 @@ remaining_word_length = len(word)
 
 while remaining_word_length != 0:
     print(''.join(blanks_list))
-    guess = input("Guess a letter: ")
+    guess = input("Guess a letter: ").lower()
     if not str.isalpha(guess):
         print("Please use an alphabetic character.")
+        continue
 
     elif len(guess) != 1:
         print("Please only guess one letter.")
+        continue
 
     if guess in guesses:
         print("That letter has already been guessed!")
         print("You have guessed these letters: ", guesses)
 
     else:
-        if word.lower().count(guess.lower()) >= 1:
-            guess_occurrences = word.lower().count(guess.lower())
+        if word.count(guess) >= 1:
+            guess_occurrences = word.count(guess)
             guesses.append(guess)
             indexes = [
                 index for index in range(len(word))
