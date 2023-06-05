@@ -1,8 +1,7 @@
 import getpass
 
 chances = 6
-word = 0
-guesses = []
+guesses = set()
 
 
 # Python code to convert string to list character-wise
@@ -14,16 +13,17 @@ def convert(string):
 
 print('You have 6 lives to guess the word. When you run out of lives, the game ends.')
 
-while word == 0:
-    word = getpass.getpass("Think of a word or press Q to quit: ")
-    blanks = '_' * len(word)
-    if word == "q":
-        print("Thanks for playing!")
-        quit()
-    word_valid = str.isalpha(word)
-    if not word_valid:
-        print("Please make the word has no numbers, spaces or special characters.")
-        word = 0
+word = getpass.getpass("Think of a word or press Q to quit: ").lower()
+
+if word == "q":
+    print("Thanks for playing!")
+    exit()
+
+while not word.isalpha():
+    print("Please make sure the word has no numbers, spaces, or special characters.")
+    word = getpass.getpass("Think of a word or press Q to quit: ").lower()
+
+blanks = "_" * len(word)
 
 word_list = convert(word)
 blanks_list = convert(blanks)
@@ -49,7 +49,7 @@ while remaining_word_length != 0:
     else:
         if word.lower().count(guess) >= 1:
             guess_occurrences = word.lower().count(guess)
-            guesses.append(guess)
+            guesses.add(guess)
             indexes = [
                 index for index in range(len(word))
                 if word.startswith(guess, index)
@@ -66,7 +66,7 @@ while remaining_word_length != 0:
 
         else:
             print("No, the letter", guess, "is not in the word.")
-            guesses.append(guess)
+            guesses.add(guess)
             chances = chances - 1
             print("You now have", chances, "lives.")
 
